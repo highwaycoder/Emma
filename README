@@ -1,0 +1,14 @@
+Emma the emulator.
+
+Emma is a brief, educational introduction to emulating CPU architecture made by amateur programmer Chris Browne.
+
+Its main function is to serve as an introduction to emulation for the author, and anybody interested enough to read the code.
+
+Features:
+ - Generic, simplified architecture
+ - 16-bit Accumulator
+ - Two 16-bit registers, named reg_b and reg_c
+ - Program Counter (register)
+ - Dynamically-allocated stack and heap, default size gives roughly 1KB of total memory at startup.  There is currently no way to programmatically increase the stack/heap sizes, though a debug interrupt may be added in the future for this purpose.
+ - Interrupts (non-programmable, in the future there may be programmable interrupts)
+ - Output console (port 0xFFFF) that dumps hex-formatted data to stdout.  In the future, there may be more output consoles that do more interesting things added.
