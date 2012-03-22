@@ -212,8 +212,8 @@ void core_dump(cpu_t* cpu)
   }
   printf("CPU registers:\n");
   printf("Accumulator: %.4X\n",cpu->acc);
-  printf("B Register (data): %.4X\n",cpu->reg_b->value);
-  printf("C Register (data): %.4X\n",cpu->reg_c->value);
+  printf("B Register (data): %.4X\n",cpu->reg_b==NULL?0x00:cpu->reg_b->value);
+  printf("C Register (data): %.4X\n",cpu->reg_c==NULL?0x00:cpu->reg_c->value);
   printf("Flags:\n");
   printf("\tCarry: %s\n",(cpu->flag_reg & FLAG_CARRY)!=0?"set":"unset");
   printf("\tSign: %s\n",(cpu->flag_reg & FLAG_SIGN)!=0?"set":"unset");
