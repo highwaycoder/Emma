@@ -6,7 +6,7 @@
 #include "include/config.h"
 #include "include/heap.h"
 #include "include/stack.h"
-#include "include/emu8086.h"
+#include "include/emma.h"
 #include "include/opcodes.h"
 
 cpu_t* emu_run(cpu_t* cpu)

@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include "include/stack.h"
 #include "include/config.h"
-#include "include/emu8086.h"
+#include "include/emma.h"
 
 int main(int argc, char **argv)
 {

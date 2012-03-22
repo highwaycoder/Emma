@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "include/emu8086.h" 
+#include "include/emma.h" 
 #include "include/heap.h"
 
 // create a new heap with the size given
