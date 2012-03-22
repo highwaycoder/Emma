@@ -8,6 +8,7 @@
 ramaddr_t* heap_init(size_t heapsize)
 {
   ramaddr_t* rv = malloc(sizeof(ramaddr_t));
+  memset(rv,0,sizeof(ramaddr_t));
   int i=0;
   ramaddr_t* top = rv;
   while(i < heapsize)

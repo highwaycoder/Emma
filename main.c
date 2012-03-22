@@ -5,12 +5,14 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <assert.h>
 #include "include/stack.h"
 #include "include/config.h"
 #include "include/emma.h"
 
 int main(int argc, char **argv)
 {
+  assert(HEAPSIZE < MAXSIZE_FILE); // otherwise config.h is screwed
 	int i=0;
   int first_byte=0,second_byte=0;
   FILE* infile = NULL;
@@ -41,18 +43,18 @@ int main(int argc, char **argv)
   cpu = malloc(sizeof(cpu_t));
   if(cpu == NULL) return -1; // error
   memset(cpu,0,sizeof(cpu_t));
-  if((inputbuffer = malloc(MAXSIZE_FILE))==NULL) return -1;
+  if((inputbuffer = malloc(MAXSIZE_FILE * sizeof(*inputbuffer)))==NULL) return -1;
   stack = st_create(STACKSIZE);
   #ifdef EMMA_DEBUG
   fprintf(stderr,"HEAPSIZE: %d\n",HEAPSIZE);
   #endif
   heap = heap_init(HEAPSIZE);
   
-  
   // read the file into memory (more complex than it first seemed)
   while(((first_byte = getc(infile)) != EOF)&&((second_byte = getc(infile)) != EOF)) {
     inputbuffer[i] = (first_byte<<8) | second_byte;
     i++;
+    if(i>=MAXSIZE_FILE) break; // this fixes the cause of a segfault
   }
   
   #ifdef EMMA_DEBUG
@@ -67,10 +69,10 @@ int main(int argc, char **argv)
   #endif
   
   // can't continue if the input size was bigger than RAM will allow
-  if(HEAPSIZE < i) 
+  if(i > HEAPSIZE) 
   {
     #ifdef EMMA_DEBUG
-    printf("Error: input file %s too big for processor\n",argv[1]);
+    printf("Error: input file \"%s\" is too big\n",argv[1]);
     #endif
     free(inputbuffer);
     st_free(stack);
@@ -79,7 +81,7 @@ int main(int argc, char **argv)
     fclose(infile);
     return -1;
   }
-  // move the input buffer onto the heap at offset 0000h
+  // move the input buffer onto the heap at offset 0x0000
   if(!heap_load(heap,inputbuffer,i))
   {
     #ifdef EMMA_DEBUG
