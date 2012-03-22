@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "emu8086.h" 
-#include "heap.h"
+#include "include/emu8086.h" 
+#include "include/heap.h"
 
 // create a new heap with the size given
 ramaddr_t* heap_init(size_t heapsize)

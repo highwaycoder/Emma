@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "stack.h"
+#include "include/stack.h"
 
 // create a new stack
 stack_t* st_create(size_t max_size)
