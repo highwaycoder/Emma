@@ -39,6 +39,7 @@ cpu_t* emu_run(cpu_t* cpu)
       OPCODE_CASE(OPCODE_JMP,emu_jmp)
       OPCODE_CASE(OPCODE_INT,emu_int)
       OPCODE_CASE(OPCODE_OUT,emu_out)
+      OPCODE_CASE(OPCODE_INC,emu_inc)
       default:
         if(cpu->pc->next == NULL)
         {
@@ -195,6 +196,13 @@ cpu_t* emu_out(cpu_t* cpu)
       break;
   }
   cpu->pc = from; // start at second argument
+  CPU_INC_PC
+  return cpu;
+}
+
+cpu_t* emu_inc(cpu_t* cpu)
+{
+  cpu->acc++;
   CPU_INC_PC
   return cpu;
 }

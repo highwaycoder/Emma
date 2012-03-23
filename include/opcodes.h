@@ -4,10 +4,11 @@
 // some sample opcodes
 enum OPCODES {
   OPCODE_NOP = 0x00,
-  OPCODE_HLT = 0x01, // halt  execution
+  OPCODE_HLT = 0x01,
   OPCODE_JMP = 0x02,
   OPCODE_MOV = 0x03,
-  OPCODE_OUT = 0x04, // send data to an output
+  OPCODE_OUT = 0x04,
+  OPCODE_INC = 0x05,
   OPCODE_INT = 0x10 // programmable? interrupts
 };
 
