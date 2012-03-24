@@ -11,6 +11,8 @@ enum OPCODES {
   OPCODE_INC = 0x05,
   OPCODE_PUSH= 0x20,
   OPCODE_POP = 0x28,
+  OPCODE_ADD = 0x30,
+  OPCODE_ADC = 0x38,
   OPCODE_INT = 0x10 // programmable? interrupts
 };
 

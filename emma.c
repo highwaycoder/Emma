@@ -40,6 +40,10 @@ cpu_t* emu_run(cpu_t* cpu)
       OPCODE_CASE(OPCODE_INT,emu_int)
       OPCODE_CASE(OPCODE_OUT,emu_out)
       OPCODE_CASE(OPCODE_INC,emu_inc)
+      OPCODE_CASE(OPCODE_POP,emu_pop)
+      OPCODE_CASE(OPCODE_PUSH,emu_push)
+      OPCODE_CASE(OPCODE_ADD,emu_add)
+      OPCODE_CASE(OPCODE_ADC,emu_add)
       default:
         if(cpu->pc->next == NULL)
         {
@@ -185,9 +189,6 @@ cpu_t* emu_out(cpu_t* cpu)
     case 0x02:
       value = cpu->reg_c->value;
       break;
-    case 0x03:
-      value = (ramword_t)st_pop(cpu->stack);
-      break;
   }
   switch(port->value)
   {
@@ -232,6 +233,43 @@ cpu_t* emu_pop(cpu_t* cpu)
     cpu->acc = popval;
   }
   CPU_INC_PC
+  return cpu;
+}
+
+cpu_t* emu_add(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  switch(arg->value)
+  {
+    case 0x00:
+      cpu->acc += cpu->reg_b->value;
+      break;
+    case 0x01:
+      cpu->acc += cpu->reg_c->value;
+      break;
+  }
+  CPU_INC_PC
+  return cpu;
+}
+
+cpu_t* emu_adc(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  int result = cpu->acc;
+  switch(arg->value)
+  {
+    case 0x00:
+      result += cpu->reg_b->value;
+      break;
+    case 0x01:
+      result += cpu->reg_c->value;
+      break;
+  }
+  if(result > (~(ramword_t)0))
+  {
+    cpu->flag_reg |= FLAG_CARRY;
+  }
+  cpu->acc = (ramword_t)result;
   return cpu;
 }
 
