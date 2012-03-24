@@ -105,7 +105,7 @@ cpu_t* emu_mov(cpu_t* cpu)
   #endif
   switch(dest->value)
   {
-    case REG_A:
+    case ACC:
       cpu->acc = src->value;
       break;
     case REG_B:
@@ -180,13 +180,13 @@ cpu_t* emu_out(cpu_t* cpu)
   #endif
   switch(from->value)
   {
-    case 0x00:
+    case ACC:
       value = cpu->acc;
       break;
-    case 0x01:
+    case REG_B:
       value = cpu->reg_b->value;
       break;
-    case 0x02:
+    case REG_C:
       value = cpu->reg_c->value;
       break;
   }

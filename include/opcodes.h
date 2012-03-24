@@ -5,15 +5,22 @@
 enum OPCODES {
   OPCODE_NOP = 0x0000,
   OPCODE_HLT = 0x0001,
+  // === jumps ===
   OPCODE_JMP = 0x1000,
+  // === movs ===
   OPCODE_MOV = 0x2000,
+  // === outs ===
   OPCODE_OUT = 0x3000,
+  // === inc/dec ===
   OPCODE_INC = 0x4000,
+  // === stack operations ===
   OPCODE_PUSH= 0x5000,
   OPCODE_POP = 0x5800,
+  // === arithmetic add ===
   OPCODE_ADD = 0x6000,
   OPCODE_ADC = 0x6800,
-  OPCODE_INT = 0xA000 // programmable? interrupts
+  // === interrupts, etc. ===
+  OPCODE_INT = 0xF000 // programmable? interrupts
 };
 
 // some sample outputs
@@ -23,7 +30,7 @@ enum OUTPUTS {
 
 // some sample operands
 enum OPERANDS {
-  REG_A = 0x00,
+  ACC = 0x00,
   REG_B = 0x01,
   REG_C = 0x02
   
