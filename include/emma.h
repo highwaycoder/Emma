@@ -4,13 +4,14 @@
 #include "stack.h"
 
 typedef enum ERRORS {
-  ENONE         = 0x00,
-  EINVALID_HEAP = 0x01,
-  EPCOVERFLOW   = 0x02,
-  EBADJMP       = 0x03,
-  EDEBUGMODE    = 0x04, // a purposeful error to create a coredump programmatically
-  EBADOPCODE    = 0x05,
-  
+  ENONE           = 0x00,
+  EINVALID_HEAP   = 0x01,
+  EPCOVERFLOW     = 0x02,
+  EBADJMP         = 0x03,
+  EDEBUGMODE      = 0x04, // a purposeful error to create a coredump programmatically
+  EBADOPCODE      = 0x05,
+  ESTACKOVERFLOW  = 0x06,
+  ESTACKUNDERFLOW = 0x07,
 }err_t;
 
 typedef enum FLAGS {

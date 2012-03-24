@@ -207,6 +207,34 @@ cpu_t* emu_inc(cpu_t* cpu)
   return cpu;
 }
 
+cpu_t* emu_push(cpu_t* cpu)
+{
+  st_push(cpu->stack,cpu->acc);
+  if(cpu->stack->overflow > 0)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = ESTACKOVERFLOW;
+  }
+  CPU_INC_PC
+  return cpu;
+}
+
+cpu_t* emu_pop(cpu_t* cpu)
+{
+  int popval = st_pop(cpu->stack);
+  if(popval < 0)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = ESTACKUNDERFLOW;
+  }
+  else
+  {
+    cpu->acc = popval;
+  }
+  CPU_INC_PC
+  return cpu;
+}
+
 void core_dump(cpu_t* cpu)
 {
   int i=0;
