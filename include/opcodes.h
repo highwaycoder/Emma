@@ -3,17 +3,17 @@
 
 // some sample opcodes
 enum OPCODES {
-  OPCODE_NOP = 0x00,
-  OPCODE_HLT = 0x01,
-  OPCODE_JMP = 0x02,
-  OPCODE_MOV = 0x03,
-  OPCODE_OUT = 0x04,
-  OPCODE_INC = 0x05,
-  OPCODE_PUSH= 0x20,
-  OPCODE_POP = 0x28,
-  OPCODE_ADD = 0x30,
-  OPCODE_ADC = 0x38,
-  OPCODE_INT = 0x10 // programmable? interrupts
+  OPCODE_NOP = 0x0000,
+  OPCODE_HLT = 0x0001,
+  OPCODE_JMP = 0x1000,
+  OPCODE_MOV = 0x2000,
+  OPCODE_OUT = 0x3000,
+  OPCODE_INC = 0x4000,
+  OPCODE_PUSH= 0x5000,
+  OPCODE_POP = 0x5800,
+  OPCODE_ADD = 0x6000,
+  OPCODE_ADC = 0x6800,
+  OPCODE_INT = 0xA000 // programmable? interrupts
 };
 
 // some sample outputs
