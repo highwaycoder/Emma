@@ -47,7 +47,6 @@ cpu_t* emu_ori(cpu_t* cpu);
 cpu_t* emu_nori(cpu_t* cpu);
 cpu_t* emu_noti(cpu_t* cpu);
 cpu_t* emu_xori(cpu_t* cpu);
-cpu_t* emu_invi(cpu_t* cpu);
 
 // macro for incrementing the program counter once
 #define CPU_INC_PC cpu->pc = (ramaddr_t*)cpu->pc->next;\

@@ -44,6 +44,11 @@ cpu_t* emu_run(cpu_t* cpu)
       OPCODE_CASE(OPCODE_PUSH,emu_push)
       OPCODE_CASE(OPCODE_ADD,emu_add)
       OPCODE_CASE(OPCODE_ADC,emu_add)
+      OPCODE_CASE(OPCODE_ANDI,emu_andi)
+      OPCODE_CASE(OPCODE_ORI,emu_ori)
+      OPCODE_CASE(OPCODE_NORI,emu_nori)
+      OPCODE_CASE(OPCODE_NOTI,emu_noti)
+      OPCODE_CASE(OPCODE_XORI,emu_xori)
       default:
         if(cpu->pc->next == NULL)
         {
@@ -324,7 +329,7 @@ cpu_t* emu_noti(cpu_t* cpu)
     cpu->errno = EPCOVERFLOW;
     return cpu;
   }
-  cpu->pc->value = !(arg->value);
+  cpu->pc->value = ~(arg->value);
   return cpu;
 }
 cpu_t* emu_xori(cpu_t* cpu)
@@ -337,18 +342,6 @@ cpu_t* emu_xori(cpu_t* cpu)
     return cpu;
   }
   cpu->pc->value ^= arg->value;
-  return cpu;
-}
-cpu_t* emu_invi(cpu_t* cpu)
-{
-  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
-  if(arg == NULL)
-  {
-    cpu->flag_reg |= FLAG_ERROR;
-    cpu->errno = EPCOVERFLOW;
-    return cpu;
-  }
-  cpu->pc->value = ~(arg->value);
   return cpu;
 }
 

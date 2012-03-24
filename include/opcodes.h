@@ -25,7 +25,6 @@ enum OPCODES {
   OPCODE_NORI = 0x8002,
   OPCODE_NOTI = 0x8003,
   OPCODE_XORI = 0x8004,
-  OPCODe_INVI = 0x8005,
   // === interrupts, etc. ===
   OPCODE_INT  = 0xF000 // programmable? interrupts
 };
