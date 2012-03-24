@@ -18,7 +18,7 @@ enum OPCODES {
   OPCODE_POP = 0x5800,
   // === arithmetic add ===
   OPCODE_ADD = 0x6000,
-  OPCODE_ADC = 0x6800,
+  OPCODE_ADC = 0x6001,
   // === interrupts, etc. ===
   OPCODE_INT = 0xF000 // programmable? interrupts
 };
