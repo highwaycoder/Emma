@@ -255,6 +255,12 @@ cpu_t* emu_add(cpu_t* cpu)
 cpu_t* emu_adc(cpu_t* cpu)
 {
   ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  if(arg == NULL)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = EPCOVERFLOW;
+    return cpu;
+  }
   int result = cpu->acc;
   switch(arg->value)
   {
@@ -270,6 +276,79 @@ cpu_t* emu_adc(cpu_t* cpu)
     cpu->flag_reg |= FLAG_CARRY;
   }
   cpu->acc = (ramword_t)result;
+  return cpu;
+}
+
+cpu_t* emu_andi(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  if(arg == NULL)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = EPCOVERFLOW;
+    return cpu;
+  }
+  cpu->pc->value &= arg->value;
+  return cpu;
+}
+cpu_t* emu_ori(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  if(arg == NULL)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = EPCOVERFLOW;
+    return cpu;
+  }
+  cpu->pc->value |= arg->value;
+  return cpu;
+}
+cpu_t* emu_nori(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  if(arg == NULL)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = EPCOVERFLOW;
+    return cpu;
+  }
+  cpu->pc->value = !(cpu->pc->value | arg->value);
+  return cpu;
+}
+cpu_t* emu_noti(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  if(arg == NULL)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = EPCOVERFLOW;
+    return cpu;
+  }
+  cpu->pc->value = !(arg->value);
+  return cpu;
+}
+cpu_t* emu_xori(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  if(arg == NULL)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = EPCOVERFLOW;
+    return cpu;
+  }
+  cpu->pc->value ^= arg->value;
+  return cpu;
+}
+cpu_t* emu_invi(cpu_t* cpu)
+{
+  ramaddr_t* arg = (ramaddr_t*)cpu->pc->next;
+  if(arg == NULL)
+  {
+    cpu->flag_reg |= FLAG_ERROR;
+    cpu->errno = EPCOVERFLOW;
+    return cpu;
+  }
+  cpu->pc->value = ~(arg->value);
   return cpu;
 }
 
