@@ -25,7 +25,7 @@ $ ./emma [input file]
  - Two 16-bit registers, named reg_b and reg_c
  - Program Counter (register)
  - 16-bit FLAGS register (Zero, Carry and Error currently supported)
- - Error Number for diagnostic purposes (debug mode only)
+ - Error Number for diagnostic purposes
  - Dynamically-allocated stack and heap, default size gives roughly 1KB of total memory at startup.  There is currently no way to programmatically increase the stack/heap sizes, though a debug interrupt may be added in the future for this purpose.
  - Interrupts (non-programmable, in the future there may be programmable interrupts)
  - Output console (port 0xFFFF) that dumps hex-formatted data to stdout.  In the future, there may be more output consoles that do more interesting things added.
