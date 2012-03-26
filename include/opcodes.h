@@ -51,4 +51,6 @@ enum OPERANDS {
                               if(cpu->flag_reg & FLAG_ERROR) return cpu;\
                               break;
 
+int get_opcode(char* opcode);
+
 #endif
