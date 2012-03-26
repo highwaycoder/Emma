@@ -1,5 +1,8 @@
 #ifndef OPCODES_H
 #define OPCODES_H
+#include <stdint.h>
+
+typedef uint16_t opcode_t;
 
 // some sample opcodes
 enum OPCODES {
