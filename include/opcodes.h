@@ -51,6 +51,14 @@ enum OPERANDS {
                               if(cpu->flag_reg & FLAG_ERROR) return cpu;\
                               break;
 
-int get_opcode(char* opcode);
+// another helpful macro
+#if LITTLE_ENDIAN
+#define SWAP_ENDIANNESS(x) ( ((x << 8) & 0xFF00) | \
+                             ((x >> 8) & 0x00FF) )
+#else
+#define SWAP_ENDIANNESS(x) (x)
+#endif
+opcode_t get_opcode(char* opcode);
+int is_opcode(char* opcode);
 
 #endif

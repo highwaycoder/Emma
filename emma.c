@@ -33,6 +33,9 @@ cpu_t* emu_run(cpu_t* cpu)
           cpu->errno = EPCOVERFLOW;
           return cpu;
         }
+        #ifdef EMMA_DEBUG
+        putchar('\n');
+        #endif
         cpu->pc = (ramaddr_t*)cpu->pc->next;
         continue;
       OPCODE_CASE(OPCODE_MOV,emu_mov)
@@ -209,6 +212,9 @@ cpu_t* emu_out(cpu_t* cpu)
 cpu_t* emu_inc(cpu_t* cpu)
 {
   cpu->acc++;
+  #ifdef EMMA_DEBUG
+  putchar('\n');
+  #endif
   CPU_INC_PC
   return cpu;
 }
@@ -221,6 +227,9 @@ cpu_t* emu_push(cpu_t* cpu)
     cpu->flag_reg |= FLAG_ERROR;
     cpu->errno = ESTACKOVERFLOW;
   }
+  #ifdef EMMA_DEBUG
+  putchar('\n');
+  #endif
   CPU_INC_PC
   return cpu;
 }
@@ -237,6 +246,9 @@ cpu_t* emu_pop(cpu_t* cpu)
   {
     cpu->acc = popval;
   }
+  #ifdef EMMA_DEBUG
+  putchar('\n');
+  #endif
   CPU_INC_PC
   return cpu;
 }
@@ -253,6 +265,9 @@ cpu_t* emu_add(cpu_t* cpu)
       cpu->acc += cpu->reg_c->value;
       break;
   }
+  #ifdef EMMA_DEBUG
+  putchar('\n');
+  #endif
   CPU_INC_PC
   return cpu;
 }
@@ -264,8 +279,14 @@ cpu_t* emu_adc(cpu_t* cpu)
   {
     cpu->flag_reg |= FLAG_ERROR;
     cpu->errno = EPCOVERFLOW;
+    #ifdef EMMA_DEBUG
+    putchar('\n');
+    #endif
     return cpu;
   }
+  #ifdef EMMA_DEBUG
+  printf("Arg: %d\n",arg->value);
+  #endif
   int result = cpu->acc;
   switch(arg->value)
   {
@@ -291,9 +312,17 @@ cpu_t* emu_andi(cpu_t* cpu)
   {
     cpu->flag_reg |= FLAG_ERROR;
     cpu->errno = EPCOVERFLOW;
+    #ifdef EMMA_DEBUG
+    putchar('\n');
+    #endif
     return cpu;
   }
-  cpu->pc->value &= arg->value;
+  #ifdef EMMA_DEBUG
+  printf("Arg: %d\n",arg->value);
+  #endif
+  cpu->acc &= arg->value;
+  CPU_INC_PC
+  CPU_INC_PC
   return cpu;
 }
 cpu_t* emu_ori(cpu_t* cpu)
@@ -303,9 +332,17 @@ cpu_t* emu_ori(cpu_t* cpu)
   {
     cpu->flag_reg |= FLAG_ERROR;
     cpu->errno = EPCOVERFLOW;
+    #ifdef EMMA_DEBUG
+    putchar('\n');
+    #endif
     return cpu;
   }
-  cpu->pc->value |= arg->value;
+  #ifdef EMMA_DEBUG
+  printf("Arg: %d\n",arg->value);
+  #endif
+  cpu->acc |= arg->value;
+  CPU_INC_PC
+  CPU_INC_PC
   return cpu;
 }
 cpu_t* emu_nori(cpu_t* cpu)
@@ -315,9 +352,17 @@ cpu_t* emu_nori(cpu_t* cpu)
   {
     cpu->flag_reg |= FLAG_ERROR;
     cpu->errno = EPCOVERFLOW;
+    #ifdef EMMA_DEBUG
+    putchar('\n');
+    #endif
     return cpu;
   }
-  cpu->pc->value = !(cpu->pc->value | arg->value);
+  #ifdef EMMA_DEBUG
+  printf("Arg: %d\n",arg->value);
+  #endif
+  cpu->acc = !(cpu->pc->value | arg->value);
+  CPU_INC_PC
+  CPU_INC_PC
   return cpu;
 }
 cpu_t* emu_noti(cpu_t* cpu)
@@ -327,9 +372,17 @@ cpu_t* emu_noti(cpu_t* cpu)
   {
     cpu->flag_reg |= FLAG_ERROR;
     cpu->errno = EPCOVERFLOW;
+    #ifdef EMMA_DEBUG
+    putchar('\n');
+    #endif
     return cpu;
   }
-  cpu->pc->value = ~(arg->value);
+  #ifdef EMMA_DEBUG
+  printf("Arg: %d\n",arg->value);
+  #endif
+  cpu->acc = ~(arg->value);
+  CPU_INC_PC
+  CPU_INC_PC
   return cpu;
 }
 cpu_t* emu_xori(cpu_t* cpu)
@@ -339,9 +392,17 @@ cpu_t* emu_xori(cpu_t* cpu)
   {
     cpu->flag_reg |= FLAG_ERROR;
     cpu->errno = EPCOVERFLOW;
+    #ifdef EMMA_DEBUG
+    putchar('\n');
+    #endif
     return cpu;
   }
-  cpu->pc->value ^= arg->value;
+  #ifdef EMMA_DEBUG
+  printf("Arg: %d\n",arg->value);
+  #endif
+  cpu->acc ^= arg->value;
+  CPU_INC_PC
+  CPU_INC_PC
   return cpu;
 }
 
